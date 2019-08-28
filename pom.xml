@@ -21,12 +21,12 @@
 
 	<repositories>
 		<repository>
-			<id>central</id>
-			<url>http://central.maven.org/maven2/</url>
+			<id>spring-repository</id>
+			<url>https://repo.spring.io/plugins-release/</url>
 		</repository>
 		<repository>
-			<id>spring-repository</id>
-			<url>http://repo.spring.io/plugins-release/</url>
+			<id>central</id>
+			<url>http://central.maven.org/maven2/</url>
 		</repository>
 	</repositories>
 
