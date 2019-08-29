@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class Transaction {
 
     @NotBlank(message = "Tipul tranzactiei este obligatoriu")
+    @TransactionTypeContraint
     @JsonProperty
     private String type;
     @NotBlank(message = "Ibanul este obligatoriu")
