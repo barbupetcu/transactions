@@ -5,7 +5,7 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /*
-Crearea adnotare pentru validarea ibanului
+Crearea adnotare pentru validarea tipului tranzactiei
  */
 @Documented
 @Constraint(validatedBy = TransactionTypeValidator.class)

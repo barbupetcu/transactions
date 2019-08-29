@@ -3,6 +3,7 @@ package com.transactions.validation.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.transactions.validation.validators.CnpConstraint;
 import com.transactions.validation.validators.IbanConstraint;
+import com.transactions.validation.validators.TransactionTypeContraint;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
