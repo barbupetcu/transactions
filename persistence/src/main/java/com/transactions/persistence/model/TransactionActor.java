@@ -1,27 +1,41 @@
-package com.transactions.validation.model;
+package com.transactions.persistence.model;
 
+import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.transactions.validation.validators.CnpConstraint;
-import com.transactions.validation.validators.IbanConstraint;
+/*
+* Din structura raportului inteleg ca o persoana poate avea un singur cont(voi merge pe aceasta varianta pentru a simplifica schema Entitatilor)
+* In cazul in care o persoana poate avea mai multe conturi:
+*
+    * - se creeaza o alta entitate Account in care se vor muta: IBAN,
+    * - entitatea Account va contine o coloana de legatura cu TransactionActor (@ManyToOne)
+    * - in entitatea Transaction coloanele payer si payee nu vor mai contine TransactionActor, ci Account
+ */
 
-import javax.validation.constraints.NotBlank;
-
+@Entity
+@Table(name = "PERSONS")
 public class TransactionActor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="id_persons_seq")
+    @SequenceGenerator(name="id_persons_seq", sequenceName = "id_persons_seq", allocationSize=1)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
 
-    @NotBlank(message = "Numele este obligatoriu")
-    @JsonProperty
+    @Column(name = "NAME", nullable = false, length = 100)
     private String name;
 
-    @NotBlank(message = "CNP-ul este obligatoriu")
-    @CnpConstraint
-    @JsonProperty
+    @Column(name = "CNP", nullable = false, length = 13, unique = true)
     private String cnp;
 
-    @IbanConstraint
-    @JsonProperty
+    @Column(name = "IBAN", nullable = false, length = 26, unique = true)
     private String iban;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
