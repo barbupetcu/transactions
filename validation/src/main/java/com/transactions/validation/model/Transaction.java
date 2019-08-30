@@ -9,8 +9,8 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
-@Conditional(selected = "type", values = {"IBAN_TO_IBAN", "IBAN_TO_WALLET"}, required = {"payer.iban"})
-@Conditional(selected = "type", values = {"IBAN_TO_IBAN", "WALLET_TO_IBAN"}, required = {"payee.iban"} )
+@Conditional(selected = "type", values = {"IBAN_TO_IBAN", "IBAN_TO_WALLET"}, required = {"payer", "payer.iban"})
+@Conditional(selected = "type", values = {"IBAN_TO_IBAN", "WALLET_TO_IBAN"}, required = {"payee", "payee.iban"} )
 public class Transaction {
 
     @NotBlank(message = "Tipul tranzactiei este obligatoriu")
