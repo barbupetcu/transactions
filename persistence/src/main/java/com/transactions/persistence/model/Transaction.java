@@ -19,11 +19,11 @@ public class Transaction {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PAYER")
-    private Person payer;
+    private TransactionActor payer;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PAYEE")
-    private Person payee;
+    private TransactionActor payee;
 
     @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount;
@@ -39,19 +39,19 @@ public class Transaction {
         this.id = id;
     }
 
-    public Person getPayer() {
+    public TransactionActor getPayer() {
         return payer;
     }
 
-    public void setPayer(Person payer) {
+    public void setPayer(TransactionActor payer) {
         this.payer = payer;
     }
 
-    public Person getPayee() {
+    public TransactionActor getPayee() {
         return payee;
     }
 
-    public void setPayee(Person payee) {
+    public void setPayee(TransactionActor payee) {
         this.payee = payee;
     }
 
