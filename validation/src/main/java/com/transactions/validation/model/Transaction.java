@@ -8,7 +8,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
-
+/*
+* @Conditional -> daca selected contine una dintre valorile din values[] atunci campurile din required[] sunt obligatorii
+ */
 @Conditional(selected = "type", values = {"IBAN_TO_IBAN", "IBAN_TO_WALLET"}, required = {"payer", "payer.iban"})
 @Conditional(selected = "type", values = {"IBAN_TO_IBAN", "WALLET_TO_IBAN"}, required = {"payee", "payee.iban"} )
 public class Transaction {
