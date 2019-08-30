@@ -11,10 +11,11 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @Query("select new TransactionTypeDto(t.type, count(t), sum(t.amount)) from Transaction t where t.payer.cnp = :cnp group by t.type")
+    @Query("select new com.transactions.persistence.model.projection.TransactionTypeDto(t.type, count(t), sum(t.amount)) " +
+            "from Transaction t where t.payer.cnp = :cnp group by t.type")
     List<TransactionTypeDto> getAggTransactionsByUser (@Param("cnp") String cnp);
 
-    @Query("select new TransactionDetailsDto(t.description, t.amount, t.payer.name, t.payer.cnp, t.payer.iban)" +
+    @Query("select new com.transactions.persistence.model.projection.TransactionDetailsDto(t.description, t.amount, t.payer.name, t.payer.cnp, t.payer.iban)" +
             " from Transaction t where t.type = :type and t.payer.cnp = :cnp")
     List<TransactionDetailsDto> getDetailedTranByTypeAndCnp(@Param("type") String type, @Param("cnp") String cnp);
 

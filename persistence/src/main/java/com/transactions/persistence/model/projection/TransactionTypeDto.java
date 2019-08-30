@@ -3,7 +3,6 @@ package com.transactions.persistence.model.projection;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionTypeDto {
@@ -25,9 +24,9 @@ public class TransactionTypeDto {
         this.count = count;
     }
 
-    public TransactionTypeDto(String type, String count, BigDecimal total) {
+    public TransactionTypeDto(String type, Long count, BigDecimal total) {
         this.type = type;
-        this.count = count;
+        this.count = count.toString();
         this.total = total;
     }
 
