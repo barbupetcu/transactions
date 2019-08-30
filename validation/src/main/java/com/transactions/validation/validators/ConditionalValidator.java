@@ -43,6 +43,8 @@ public class ConditionalValidator implements ConstraintValidator<Conditional, Ob
                     if (!valid) {
                         context.disableDefaultConstraintViolation();
                         context.buildConstraintViolationWithTemplate(message).addPropertyNode(propName).addConstraintViolation();
+                        //returnam false pentru a nu continua cu membrii obiectului null
+                        return false;
                     }
                 }
             }
