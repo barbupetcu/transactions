@@ -1,30 +1,27 @@
-package com.transactions.persistence.model.projection;
+package com.transactions.validation.model;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.transactions.persistence.model.TransactionActor;
+import com.transactions.validation.validators.CnpConstraint;
+import com.transactions.validation.validators.IbanConstraint;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
-public class ReportDto {
+public class TransactionActor {
 
+    @NotBlank(message = "Numele este obligatoriu")
     @JsonProperty
     private String name;
 
+    @NotBlank(message = "CNP-ul este obligatoriu")
+    @CnpConstraint
     @JsonProperty
     private String cnp;
 
+    @IbanConstraint
     @JsonProperty
     private String iban;
 
-    @JsonProperty
-    private List<TransactionTypeDto> transactions;
-
-    public ReportDto(TransactionActor transactionActor) {
-        this.name = transactionActor.getName();
-        this.cnp = transactionActor.getCnp();
-        this.iban = transactionActor.getIban();
-        
-    }
 
     public String getName() {
         return name;
@@ -50,11 +47,4 @@ public class ReportDto {
         this.iban = iban;
     }
 
-    public List<TransactionTypeDto> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<TransactionTypeDto> transactions) {
-        this.transactions = transactions;
-    }
 }
