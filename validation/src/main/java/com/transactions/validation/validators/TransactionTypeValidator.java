@@ -20,7 +20,7 @@ public class TransactionTypeValidator implements ConstraintValidator<Transaction
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return EnumUtils.isValidEnum(TransactionType.class, value);
+        return EnumUtils.isValidEnum(Transaction.TransactionType.class, value);
     }
 
 
