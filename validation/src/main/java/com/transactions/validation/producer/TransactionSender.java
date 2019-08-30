@@ -23,7 +23,7 @@ public class TransactionSender {
     private String topic;
 
     /*
-    *Adaugare detalii tranzactie in coada de mesaje Kafka
+    *Adaugare tranzactie in coada de mesaje Kafka
     *
      */
     public void addToQueue(Transaction transaction){

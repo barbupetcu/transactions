@@ -1,13 +1,14 @@
 package com.transactions.validation.validators;
 
+import com.transactions.validation.utils.TransactionType;
+import org.apache.commons.lang3.EnumUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 import java.util.List;
 
 public class TransactionTypeValidator implements ConstraintValidator<TransactionTypeContraint, String> {
-  
-  private final static List<String> transactionsTypes = Arrays.asList("IBAN_TO_IBAN","IBAN_TO_WALLET","WALLET_TO_IBAN","WALLET_TO_WALLET");
 
     @Override
     public void initialize(TransactionTypeContraint TransactionTypeConstraint) {
@@ -19,7 +20,7 @@ public class TransactionTypeValidator implements ConstraintValidator<Transaction
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return transactionsTypes.contains(value);
+        return EnumUtils.isValidEnum(TransactionType.class, value);
     }
 
 

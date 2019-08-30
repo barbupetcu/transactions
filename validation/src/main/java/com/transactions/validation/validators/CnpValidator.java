@@ -22,7 +22,7 @@ public class CnpValidator implements ConstraintValidator<CnpConstraint, String> 
 
     //todo completat metoda de validare a cnpului
     private boolean checkCnp(String cnp){
-       if(cnp.length() == 13){
+       if(cnp!=null && cnp.length() == 13){
             int[] cnpArray = new int[13];
 
             for(int i=0; i<cnp.length(); i++){
