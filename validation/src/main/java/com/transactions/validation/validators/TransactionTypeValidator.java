@@ -1,5 +1,6 @@
 package com.transactions.validation.validators;
 
+import com.transactions.validation.model.Transaction;
 import com.transactions.validation.utils.TransactionType;
 import org.apache.commons.lang3.EnumUtils;
 
