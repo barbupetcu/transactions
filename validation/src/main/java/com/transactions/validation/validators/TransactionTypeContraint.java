@@ -12,7 +12,7 @@ Crearea adnotare pentru validarea tipului tranzactiei
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TransactionTypeContraint {
-    String message() default "Tipul tranzactiei nu este valid nu este valid";
+    String message() default "Tipul tranzactiei nu este valid";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
