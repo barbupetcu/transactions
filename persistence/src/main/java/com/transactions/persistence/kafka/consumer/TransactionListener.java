@@ -24,12 +24,18 @@ public class TransactionListener {
     @KafkaListener(topics = "${app.topic.transactions}")
     public void receive(@Payload Transaction transaction, @Headers MessageHeaders headers) {
 
-        LOG.info("received data='{}'", transaction);
-        dataPersistenceSerivce.saveTransaction(transaction);
+        try{
+            LOG.info("received data='{}'", transaction);
+            dataPersistenceSerivce.saveTransaction(transaction);
+        }
+        catch (Exception ex){
+            //ToDo in cazul in care apare o eroare la scrierea in baza de date
+            // informatiile pot fi scrise intr-un alt topic kafka
+            // (eventual adaugam si metadate in care sa descriem eroarea)
+            LOG.error("error persisting data = {}", ex);
+        }
 
-        headers.keySet().forEach(key -> {
-            LOG.info("{}: {}", key, headers.get(key));
-        });
+
     }
 
 }

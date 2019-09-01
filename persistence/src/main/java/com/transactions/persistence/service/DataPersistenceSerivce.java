@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
+@Transactional
 public class DataPersistenceSerivce {
 
     @Autowired
@@ -30,13 +31,13 @@ public class DataPersistenceSerivce {
         * Acesta regula merge doar pentru scenariul nostru in care o persoana poate avea doar un IBAN,
         * altfel avem nevoie de o entitate suplimentara Account descrisa in clasa Transaction.java
          */
-        TransactionActor actor = transactionActorRepository.findByCnp(transaction.getPayer().getCnp());
-        if (actor.getId() != null){
-            transaction.getPayer().setId(actor.getId());
+        TransactionActor dbPayer = transactionActorRepository.findByCnp(transaction.getPayer().getCnp());
+        if (dbPayer != null){
+            transaction.setPayer(dbPayer);
         }
-        actor = transactionActorRepository.findByCnp(transaction.getPayee().getCnp());
-        if (actor.getId() != null){
-            transaction.getPayer().setId(actor.getId());
+        TransactionActor dbPayee = transactionActorRepository.findByCnp(transaction.getPayee().getCnp());
+        if (dbPayee != null){
+            transaction.setPayee(dbPayee);
         }
         transactionRepository.save(transaction);
 
@@ -68,12 +69,13 @@ public class DataPersistenceSerivce {
         for (TypesEnum t : TypesEnum.class.getEnumConstants()){
 
             if (!containsType(dbTransType, t.toString())){
-                dbTransType.add(new TransactionTypeDto(t.toString(), "fara tranzactii"));
+                dbTransType.add(new TransactionTypeDto(t.toString()));
             }
         }
 
         //sortam lista tipurilor de tranzactie
         dbTransType.sort(Comparator.comparing( a -> a.getType()));
+        report.setTransactions(dbTransType);
         return report;
 
     }
@@ -82,22 +84,5 @@ public class DataPersistenceSerivce {
     private boolean containsType(final List<TransactionTypeDto> list, final String type){
         return list.stream().filter(o -> o.getType().equals(type)).findFirst().isPresent();
     }
-
-    /*
-    * adauga cuvantul tranzactie/tranzactii dupa countul tranzactiilor
-     */
-    private String adjustTransCount (String count){
-        if (Integer.parseInt(count) == 1){
-            return count + " tranzactie";
-        }
-        else{
-            return count + " tranzactii";
-        }
-    }
-
-
-
-
-
 
 }

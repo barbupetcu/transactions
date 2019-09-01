@@ -1,27 +1,32 @@
 package com.transactions.persistence.model.projection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@JsonPropertyOrder({"type","count","total","details"})
 public class TransactionTypeDto {
 
     @JsonProperty
     private String type;
 
-    @JsonProperty
+    @JsonIgnore
     private String count;
 
-    @JsonProperty
+    @JsonIgnore
     private BigDecimal total;
 
     @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<TransactionDetailsDto> details;
 
-    public TransactionTypeDto(String type, String count) {
+    public TransactionTypeDto(String type) {
         this.type = type;
-        this.count = count;
     }
 
     public TransactionTypeDto(String type, Long count, BigDecimal total) {
@@ -62,4 +67,26 @@ public class TransactionTypeDto {
         this.details = details;
     }
 
+    @JsonProperty("total")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getAmountAsString() {
+        if (this.total != null)
+            return this.total.toString() + " RON";
+        else return null;
+    }
+
+    @JsonProperty("count")
+    private String adjustTransCount (){
+        if (StringUtils.isEmpty(this.count)){
+            return "fara tranzactii";
+        }
+        else{
+            if (Integer.parseInt(this.count) == 1){
+                return this.count + " tranzactie";
+            }
+            else{
+                return this.count + " tranzactii";
+            }
+        }
+    }
 }
